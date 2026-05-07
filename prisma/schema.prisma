@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Card {
+  id              String   @id @default(cuid())
+  name            String
+  setId           String?
+  setName         String?
+  setCode         String?
+  number          String?
+  rarity          String?
+  imageUrl        String?
+  pokemonTcgId    String?  @unique
+  priceChartingId String?
+  year            Int?
+  artist          String?
+  types           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  priceSnapshots  PriceSnapshot[]
+  portfolioItems  PortfolioItem[]
+  watchlistItems  WatchlistItem[]
+  @@index([name])
+}
+
+model PriceSnapshot {
+  id          String   @id @default(cuid())
+  cardId      String
+  card        Card     @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  source      String
+  rawPrice    Float?
+  psa8Price   Float?
+  psa9Price   Float?
+  psa10Price  Float?
+  gradedPrice Float?
+  volume      Int?
+  fetchedAt   DateTime @default(now())
+  @@index([cardId, fetchedAt])
+}
+
+model PortfolioItem {
+  id            String    @id @default(cuid())
+  cardId        String?
+  card          Card?     @relation(fields: [cardId], references: [id], onDelete: SetNull)
+  cardName      String
+  setName       String?
+  cardNumber    String?
+  imageUrl      String?
+  condition     String    @default("Raw")
+  gradeCompany  String?
+  grade         String?
+  quantity      Int       @default(1)
+  purchasePrice Float
+  purchaseDate  DateTime  @default(now())
+  currentValue  Float?
+  targetPrice   Float?
+  notes         String?
+  status        String    @default("Holding")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model WatchlistItem {
+  id              String   @id @default(cuid())
+  cardId          String?
+  card            Card?    @relation(fields: [cardId], references: [id], onDelete: SetNull)
+  cardName        String
+  setName         String?
+  cardNumber      String?
+  imageUrl        String?
+  targetBuyPrice  Float?
+  targetSellPrice Float?
+  currentPrice    Float?
+  notes           String?
+  alertEnabled    Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model AppSettings {
+  id                 String   @id @default("singleton")
+  gradingCost        Float    @default(25)
+  ebayFeePercent     Float    @default(12.9)
+  targetProfitPct    Float    @default(30)
+  minRoiPct          Float    @default(20)
+  preferredCondition String   @default("Near Mint")
+  updatedAt          DateTime @updatedAt
+}
+
+model SyncLog {
+  id        String   @id @default(cuid())
+  source    String
+  cardId    String?
+  status    String
+  message   String?
+  createdAt DateTime @default(now())
+}

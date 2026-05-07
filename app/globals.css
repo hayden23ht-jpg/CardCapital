@@ -1,0 +1,232 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Gold luxury palette */
+  --gold:        #D4A843;
+  --gold-bright: #F5C842;
+  --gold-dim:    rgba(212,168,67,0.12);
+  --gold-glow:   rgba(212,168,67,0.25);
+
+  /* Semantic colors */
+  --emerald:     #10B981;
+  --emerald-dim: rgba(16,185,129,0.1);
+  --red:         #EF4444;
+  --red-dim:     rgba(239,68,68,0.1);
+  --blue:        #3B82F6;
+  --blue-dim:    rgba(59,130,246,0.1);
+  --purple:      #8B5CF6;
+  --purple-dim:  rgba(139,92,246,0.1);
+  --cyan:        #06B6D4;
+
+  /* Backgrounds — deep obsidian */
+  --obsidian:    #080A0F;
+  --bg0:         #0A0C12;
+  --bg1:         #0E1018;
+  --bg2:         #12141C;
+  --bg3:         #171922;
+  --bg4:         #1C1F2A;
+  --bg5:         #222535;
+
+  /* Borders */
+  --line:        rgba(255,255,255,0.06);
+  --line2:       rgba(255,255,255,0.1);
+  --line-gold:   rgba(212,168,67,0.2);
+
+  /* Text */
+  --ink:         #F2F0E8;
+  --ink2:        rgba(242,240,232,0.55);
+  --ink3:        rgba(242,240,232,0.28);
+  --ink4:        rgba(242,240,232,0.12);
+
+  /* Layout */
+  --rail:        260px;
+  --r-sm:        8px;
+  --r-md:        14px;
+  --r-lg:        20px;
+  --r-xl:        28px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--obsidian);
+  color: var(--ink);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar { width: 3px; height: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--line-gold); border-radius: 3px; }
+
+/* ── Typography ── */
+.display { font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -0.04em; }
+.serif   { font-family: 'Instrument Serif', serif; font-style: italic; }
+.mono    { font-family: 'DM Mono', monospace; font-variant-numeric: tabular-nums; }
+.label   { font-family: 'DM Mono', monospace; font-size: 0.5625rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink3); }
+
+/* ── Surfaces ── */
+.panel {
+  background: var(--bg1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+}
+.panel-gold {
+  background: var(--bg1);
+  border: 1px solid var(--line-gold);
+  border-radius: var(--r-lg);
+}
+
+/* ── Glass ── */
+.glass {
+  background: rgba(14,16,24,0.7);
+  backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+}
+
+/* ── Gold accent line ── */
+.gold-top::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.6;
+}
+
+/* ── Inputs ── */
+.field {
+  width: 100%; padding: 0.75rem 1rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  color: var(--ink); font-family: 'Space Grotesk', sans-serif; font-size: 0.9375rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.field:focus { outline: none; border-color: var(--line-gold); box-shadow: 0 0 0 3px var(--gold-dim); }
+.field::placeholder { color: var(--ink4); }
+select.field { cursor: pointer; appearance: none; }
+textarea.field { resize: vertical; }
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  padding: 0.625rem 1.375rem;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.875rem;
+  border: none; border-radius: 9999px; cursor: pointer;
+  transition: all 0.15s ease; text-decoration: none; letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.btn-gold { background: var(--gold); color: var(--obsidian); }
+.btn-gold:hover { background: var(--gold-bright); box-shadow: 0 0 24px var(--gold-glow); transform: translateY(-1px); }
+.btn-emerald { background: var(--emerald); color: var(--obsidian); }
+.btn-emerald:hover { background: #34D399; transform: translateY(-1px); }
+.btn-ghost { background: rgba(255,255,255,0.04); color: var(--ink2); border: 1px solid var(--line); }
+.btn-ghost:hover { background: rgba(255,255,255,0.08); color: var(--ink); border-color: var(--line2); }
+.btn-ghost-gold { background: var(--gold-dim); color: var(--gold); border: 1px solid var(--line-gold); }
+.btn-ghost-gold:hover { background: rgba(212,168,67,0.2); }
+.btn-danger { background: var(--red-dim); color: var(--red); border: 1px solid rgba(239,68,68,0.2); }
+.btn-sm { padding: 0.375rem 0.875rem; font-size: 0.8125rem; }
+.btn-xs { padding: 0.25rem 0.625rem; font-size: 0.75rem; }
+
+/* ── Score/Rec pills ── */
+.pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: 6px;
+  font-family: 'DM Mono', monospace; font-size: 0.5625rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.pill-buy    { background: var(--emerald-dim); color: var(--emerald); border: 1px solid rgba(16,185,129,0.2); }
+.pill-hold   { background: var(--blue-dim);    color: var(--blue);    border: 1px solid rgba(59,130,246,0.2); }
+.pill-sell   { background: var(--red-dim);     color: var(--red);     border: 1px solid rgba(239,68,68,0.2); }
+.pill-watch  { background: var(--gold-dim);    color: var(--gold);    border: 1px solid var(--line-gold); }
+.pill-gold   { background: var(--gold-dim);    color: var(--gold);    border: 1px solid var(--line-gold); }
+.pill-purple { background: var(--purple-dim);  color: var(--purple);  border: 1px solid rgba(139,92,246,0.2); }
+.pill-cyan   { background: rgba(6,182,212,0.1); color: var(--cyan);   border: 1px solid rgba(6,182,212,0.2); }
+.pill-dim    { background: rgba(255,255,255,0.05); color: var(--ink3); border: 1px solid var(--line); }
+
+/* ── Animations ── */
+@keyframes fadeUp    { from { opacity:0; transform:translateY(12px) } to { opacity:1; transform:none } }
+@keyframes fadeIn    { from { opacity:0 } to { opacity:1 } }
+@keyframes spin      { to { transform:rotate(360deg) } }
+@keyframes pulse     { 0%,100%{opacity:1} 50%{opacity:.35} }
+@keyframes shimmer   { 0%{background-position:-400% 0} 100%{background-position:400% 0} }
+@keyframes glow      { 0%,100%{box-shadow:0 0 8px var(--gold-dim)} 50%{box-shadow:0 0 20px var(--gold-glow)} }
+@keyframes ticker    { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+@keyframes popIn     { from{opacity:0;transform:scale(0.94) translateY(8px)} to{opacity:1;transform:none} }
+@keyframes slideLeft { from{opacity:0;transform:translateX(16px)} to{opacity:1;transform:none} }
+
+.fade-up   { animation: fadeUp 0.45s cubic-bezier(0.22,1,0.36,1) both; }
+.fade-up-1 { animation: fadeUp 0.45s cubic-bezier(0.22,1,0.36,1) 0.07s both; }
+.fade-up-2 { animation: fadeUp 0.45s cubic-bezier(0.22,1,0.36,1) 0.14s both; }
+.fade-up-3 { animation: fadeUp 0.45s cubic-bezier(0.22,1,0.36,1) 0.21s both; }
+.fade-up-4 { animation: fadeUp 0.45s cubic-bezier(0.22,1,0.36,1) 0.28s both; }
+.pop-in    { animation: popIn  0.3s cubic-bezier(0.34,1.56,0.64,1) both; }
+
+/* ── Skeleton ── */
+.skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.07) 40%, rgba(255,255,255,0.03) 80%);
+  background-size: 400% 100%; animation: shimmer 1.8s linear infinite; border-radius: 8px;
+}
+
+/* ── Card hover lift ── */
+.card-lift {
+  transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.card-lift:hover {
+  transform: translateY(-3px) scale(1.004);
+  border-color: var(--line-gold) !important;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px var(--line-gold);
+}
+
+/* ── Ticker tape ── */
+.ticker-wrap { overflow: hidden; }
+.ticker-inner { display: flex; gap: 0; animation: ticker 30s linear infinite; width: max-content; }
+.ticker-inner:hover { animation-play-state: paused; }
+
+/* ── Table ── */
+.tbl { width: 100%; border-collapse: collapse; }
+.tbl th { padding: 0.5625rem 1rem; text-align: left; font-family: 'DM Mono', monospace; font-size: 0.5rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink3); border-bottom: 1px solid var(--line); white-space: nowrap; }
+.tbl td { padding: 0.875rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; font-size: 0.875rem; }
+.tbl tr:last-child td { border-bottom: none; }
+.tbl tbody tr { transition: background 0.12s; cursor: pointer; }
+.tbl tbody tr:hover td { background: rgba(212,168,67,0.03); }
+
+/* ── Chart tooltip ── */
+.chart-tip {
+  background: rgba(10,12,18,0.97) !important;
+  border: 1px solid var(--line-gold) !important;
+  border-radius: 10px !important;
+  font-family: 'DM Mono', monospace !important;
+}
+
+/* ── Modal ── */
+.modal-backdrop { position:fixed;inset:0;background:rgba(8,10,15,0.88);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;z-index:1000;padding:1.5rem; }
+.modal-box { background:var(--bg1);border:1px solid var(--line-gold);border-radius:var(--r-xl);padding:2rem;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;animation:popIn 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+
+/* ── Toast ── */
+.toast { position:fixed;bottom:2rem;right:2rem;z-index:9999;display:flex;align-items:center;gap:0.75rem;padding:0.875rem 1.25rem;background:rgba(10,12,18,0.97);border-radius:14px;font-weight:600;font-size:0.9375rem;box-shadow:0 16px 48px rgba(0,0,0,0.5);animation:popIn 0.25s cubic-bezier(0.34,1.56,0.64,1); }
+.toast-ok  { border:1px solid rgba(16,185,129,0.35);color:var(--emerald); }
+.toast-err { border:1px solid rgba(239,68,68,0.35);color:var(--red); }
+
+/* ── Grid texture ── */
+.grid-tex {
+  background-image:
+    linear-gradient(rgba(212,168,67,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(212,168,67,0.03) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+
+/* ── Stat card accent bar ── */
+.stat-card { position:relative;overflow:hidden; }
+.stat-card::before { content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent-clr,var(--gold)),transparent);opacity:0.7; }
+
+/* Reset */
+input,select,textarea,button { font-family:'Space Grotesk',sans-serif; }
+a { text-decoration: none; color: inherit; }
